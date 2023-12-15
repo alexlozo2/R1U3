@@ -7,10 +7,10 @@ include 'database.php';
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
-$idProyecto = $request->idProyecto;
+$idDocumento = $request->idDocumento;
 
 // Actualizar el estado del proyecto en la base de datos
-$consulta = "UPDATE Proyectos SET estadoProyecto = 'Completado' WHERE idProyecto = $idProyecto";
+$consulta = "UPDATE Documentos SET Estado = 'EnRevision' WHERE idDocumento = $idDocumento";
 
 if (mysqli_query($con, $consulta)) {
     echo json_encode(['success' => true]);

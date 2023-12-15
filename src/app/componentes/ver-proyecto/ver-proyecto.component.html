@@ -12,8 +12,8 @@
                             <a href="{{ getPDFUrl(verDocumento.rutaDocumento) }}" target="_blank">{{
                                 extractFileName(verDocumento.rutaDocumento) }}</a>
                         </div>
-                        <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Aceptar</button>
-                        <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Rechazar</button>
+                        <button class="btn btn-primary" style="margin-left: 10px;" (click)="aceptado()">Aceptar</button>
+                        <button class="btn btn-primary" style="margin-left: 10px;" (click)="rechazado()">Rechazar</button>
                     </div>
                 </div>
             </div>

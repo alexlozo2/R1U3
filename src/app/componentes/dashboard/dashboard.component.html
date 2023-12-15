@@ -12,7 +12,7 @@
                                 <div class="project-box">
                                     <p>Documentos</p>
                                     <h2>{{ numPDFs }}</h2>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -33,48 +33,95 @@
             </div>
         </div>
         <!-- Pendientes -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3>Pendientes</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4" *ngFor="let documento of documentosPendientes">
-                        <div class="project-list" (click)="redirectToPDF(documento)">
-                            <p>{{ documento.idDocumento }}</p>
-                            <p>{{ documento.gmailPropietario }}</p>
-                            <p>{{ documento.rutaDocumento }}</p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pendientes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let documento of documentosPendientes">
+                                <div class="project-list" (click)="redirectToPDF(documento)">
+                                    <p>{{ documento.idDocumento }}</p>
+                                    <p>{{ documento.gmailPropietario }}</p>
+                                    <p>{{ documento.rutaDocumento }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- En revisión -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3>En revisión</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4" *ngFor="let documento of documentosEnRevision">
-                        <div class="project-list" (click)="redirectToPDF(documento)">
-                            <p>{{ documento.idDocumento }}</p>
-                            <p>{{ documento.gmailPropietario }}</p>
-                            <p>{{ documento.rutaDocumento }}</p>
+        <!-- En revisión -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>En revisión</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let documento of documentosEnRevision">
+                                <div class="project-list">
+                                    <p>{{ documento.idDocumento }}</p>
+                                    <p>{{ documento.gmailPropietario }}</p>
+                                    <p>{{ documento.rutaDocumento }}</p>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <!-- Aceptados -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Aceptados</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let documento of documentosAceptados">
+                                <div class="project-list">
+                                    <p>{{ documento.idDocumento }}</p>
+                                    <p>{{ documento.gmailPropietario }}</p>
+                                    <p>{{ documento.rutaDocumento }}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Rechazados -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Rechazados</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let documento of documentosRechazados">
+                                <div class="project-list">
+                                    <p>{{ documento.idDocumento }}</p>
+                                    <p>{{ documento.gmailPropietario }}</p>
+                                    <p>{{ documento.rutaDocumento }}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 </div>

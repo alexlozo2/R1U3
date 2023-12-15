@@ -22,7 +22,7 @@ $rutaDocumento = "../pdf/" . $nombreOriginal;
 if (move_uploaded_file($documento['tmp_name'], $rutaDocumento)) {
     // Insertar la información del documento en la base de datos con enRevision por defecto a false
     $consultaDocumento = "INSERT INTO Documentos (Estado, enRevision, rutaDocumento, gmailPropietario) 
-                          VALUES ('En revisión', 0, '$rutaDocumento', '$gmailPropietario')";
+                          VALUES ('Pendiente', 0, '$rutaDocumento', '$gmailPropietario')";
     if (mysqli_query($con, $consultaDocumento)) {
         echo json_encode(['success' => true, 'rutaDocumento' => $rutaDocumento, 'gmailPropietario' => $gmailPropietario]);
     } else {

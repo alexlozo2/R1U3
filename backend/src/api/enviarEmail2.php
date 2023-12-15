@@ -95,7 +95,7 @@ $request = json_decode($postdata);
 // Asegúrate de obtener los datos necesarios del componente 'ver-proyecto'
 $to = $request->gmailPropietario;
 $subject = "Estado de su documento";
-$message = "Hola " . $request->gmailPropietario . ",\n\nTu documento ha sido Aceptado";
+$message = "Hola " . $request->gmailPropietario . ",\n\nTu documento ha sido Rechazado";
 
 $remitente = 'arturolopez1997vecino@gmail.com';
 $nremitente = 'Impresora';

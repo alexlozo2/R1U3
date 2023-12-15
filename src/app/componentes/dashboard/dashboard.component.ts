@@ -3,8 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { InformeFactory } from './../../factory-pattern/informe-factory.interface';
-import { Proyecto } from 'src/app/Models/Proyecto.model';
-import { LiderConProyectos } from 'src/app/Models/liderConProyectos.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +16,8 @@ export class DashboardComponent implements OnInit {
   numPDFsEnRevision: number;
   documentosPendientes: Documento[];
   documentosEnRevision: Documento[];
-
-  proyectos: Proyecto[];
-  lideresConProyectos: LiderConProyectos[];
-  numProyectos: number;
-  numProyectosActivos: number;
-  numProyectosCompletados: number;
+  documentosAceptados: Documento[];
+  documentosRechazados: Documento[];
 
   constructor(@Inject('InformeFactory') private informeFactory: InformeFactory, private apiService: ApiService, private router: Router) { }
 
@@ -43,12 +37,14 @@ export class DashboardComponent implements OnInit {
     this.apiService.loadPDFs().subscribe(
       (documentos: Documento[]) => {
         this.documentos = documentos;
-        this.documentosPendientes = documentos.filter(doc => doc.enRevision);
-        this.documentosEnRevision = documentos.filter(doc => !doc.enRevision);
+        this.documentosPendientes = documentos.filter(doc => doc.Estado === 'Pendiente');
+        this.documentosEnRevision = documentos.filter(doc => doc.Estado === 'EnRevision');
+        this.documentosAceptados = documentos.filter(doc => doc.Estado === 'Aceptado');
+        this.documentosRechazados = documentos.filter(doc => doc.Estado === 'Rechazado');
 
         this.numPDFs = documentos.length;
-        this.numPDFsEnRevision = documentos.filter(p => !p.enRevision ).length;
-        this.numPDFsPendientes = documentos.filter(p => p.enRevision ).length;
+        this.numPDFsEnRevision = documentos.filter(p => p.Estado === 'EnRevision' ).length;
+        this.numPDFsPendientes = documentos.filter(p => p.Estado === 'Pendiente' ).length;
       },
       (error) => {
         console.error('Error al cargar proyectos:', error);
@@ -59,30 +55,6 @@ export class DashboardComponent implements OnInit {
   generarInforme(): void {
     const informe = this.informeFactory.crearInforme();
     informe.generarInforme();
-  }
-
-  loadProyectos() {
-    this.apiService.loadProyectos().subscribe(
-      (proyectos: Proyecto[]) => {
-        this.proyectos = proyectos;
-        this.numProyectos = proyectos.length;
-        this.numProyectosActivos = proyectos.filter(p => p.estadoProyecto === 'Activo').length;
-        this.numProyectosCompletados = proyectos.filter(p => p.estadoProyecto === 'Completado').length;
-      },
-      (error) => {
-        console.error('Error al cargar proyectos:', error);
-      }
-    );
-  }
-
-
-  redirectToProyectoDetalle(proyecto: Proyecto) {
-    if (proyecto && proyecto.idProyecto) {
-      const url = ['ver-proyecto', proyecto.idProyecto];
-      this.router.navigate(url);
-    } else {
-      console.error('ID de proyecto indefinido. No se puede navegar.');
-    }
   }
   
   redirectToPDF(documento: Documento) {

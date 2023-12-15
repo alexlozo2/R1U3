@@ -1,8 +1,7 @@
 // ver-proyecto.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { VerProyecto } from 'src/app/Models/VerProyecto.model';
 import { Documento } from 'src/app/Models/Documento.model';
 
 @Component({
@@ -11,47 +10,31 @@ import { Documento } from 'src/app/Models/Documento.model';
   styleUrls: ['./ver-proyecto.component.css']
 })
 export class VerProyectoComponent implements OnInit {
-  verProyecto: VerProyecto;
   verDocumento: Documento;
-  idProyecto: number;
   idDocumento: number;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { 
-    
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {
+
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
-      if (!isNaN(this.idProyecto)) {
-        this.loadProyecto(this.idProyecto);
-      }
-    });
     this.route.paramMap.subscribe((params) => {
       this.idDocumento = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
       if (!isNaN(this.idDocumento)) {
         this.loadPDF(this.idDocumento);
       }
     });
-    console.log("Datos de PDF: ",this.verDocumento);
-  }  
+    console.log("Datos de PDF: ", this.verDocumento);
+    this.enRevission(this.idDocumento);
 
-  loadProyecto(idProyecto: number) {
-    this.apiService.getProyectoDetallado(idProyecto).subscribe(
-      (verProyecto: VerProyecto) => {
-        this.verProyecto = verProyecto;
-      },
-      (error) => {
-        console.error('Error al cargar proyecto:', error);
-      }
-    );
   }
+
 
   loadPDF(idDocumento: number) {
     this.apiService.getPDF(idDocumento).subscribe(
       (verDocumento: Documento) => {
         this.verDocumento = verDocumento;
-        console.log("Datos del pdfaa: ",this.verDocumento);
+        console.log("Datos del pdfaa: ", this.verDocumento);
       },
       (error) => {
         console.error('Error al cargar PDF: ', error)
@@ -59,16 +42,73 @@ export class VerProyectoComponent implements OnInit {
     )
   }
 
-  terminado(idProyecto: number): void {
-    this.apiService.terminado(idProyecto).subscribe(
+  enRevission(idDocumento: number): void {
+    this.apiService.enRevision(idDocumento).subscribe(
       (response) => {
-        this.loadProyecto(this.idProyecto);
+        this.loadPDF(this.idDocumento);
       },
       (error) => {
-        console.error('Error al actualizar el estado del proyecto', error);
-        // Puedes manejar el error aquí si es necesario
+        console.error('Error al cambiar el estado', error);
       }
-    );
+    )
+  }
+
+  aceptado(): void {
+    const idDocumento = this.idDocumento;
+    this.apiService.aceptado(idDocumento).subscribe(
+      (response) => {
+        if (response && response.success) {
+          // Enviar el correo electrónico después de agregar el stakeholder
+          this.apiService.enviarCorreo(this.verDocumento).subscribe(
+            (correoResponse) => {
+              if (correoResponse && correoResponse.success) {
+                console.log('Correo electrónico enviado con éxito.');
+              } else {
+                console.error('Error al enviar el correo electrónico.');
+              }
+            },
+            (correoError) => {
+              console.error('Error en la solicitud para enviar el correo electrónico: ', correoError);
+            }
+          );
+          this.router.navigate(['/dashboard']);
+        } else {
+          console.error('Error al agregar stakeholder.');
+        }
+      },
+      (error) => {
+        console.error('Error al cambiar el estado', error);
+      }
+    )
+  }
+
+  rechazado(): void {
+    const idDocumento = this.idDocumento;
+    this.apiService.rechazado(idDocumento).subscribe(
+      (response) => {
+        if (response && response.success) {
+          // Enviar el correo electrónico después de agregar el stakeholder
+          this.apiService.enviarCorreo2(this.verDocumento).subscribe(
+            (correoResponse) => {
+              if (correoResponse && correoResponse.success) {
+                console.log('Correo electrónico enviado con éxito.');
+              } else {
+                console.error('Error al enviar el correo electrónico.');
+              }
+            },
+            (correoError) => {
+              console.error('Error en la solicitud para enviar el correo electrónico: ', correoError);
+            }
+          );
+          this.router.navigate(['/dashboard']);
+        } else {
+          console.error('Error al agregar stakeholder.');
+        }
+      },
+      (error) => {
+        console.error('Error al cambiar el estado', error);
+      }
+    )
   }
 
   getPDFUrl(pdf: string): string {
@@ -83,3 +123,6 @@ export class VerProyectoComponent implements OnInit {
   }
 
 }
+
+
+
