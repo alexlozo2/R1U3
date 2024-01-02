@@ -12,7 +12,7 @@ export class InformePDF implements Informe {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     // Obtener datos de la base de datos a través del servicio de API
-    const proyectos: Proyecto[] = await this.apiService.loadProyectos().toPromise();
+    /*const proyectos: Proyecto[] = await this.apiService.loadProyectos().toPromise();
 
     // Transformar datos en contenido de informe
     const content = [
@@ -56,6 +56,6 @@ export class InformePDF implements Informe {
         widths: ['auto', '*', 'auto'],
         body: [headers, ...body],
       },
-    };
+    };*/
   }
 }
