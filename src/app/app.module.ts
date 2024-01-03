@@ -13,6 +13,12 @@ import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-ses
 import { ImprimirComponent } from './componentes/imprimir/imprimir.component';
 import { DashboardSingletonComponent } from './componentes/dashboard-singleton/dashboard-singleton.component';
 
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ListProyectComponent } from './components/list-proyect/list-proyect.component';
+import { ActivityComponent } from './components/activity/activity.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +28,9 @@ import { DashboardSingletonComponent } from './componentes/dashboard-singleton/d
     IniciarSesionComponent,
     ImprimirComponent,
     DashboardSingletonComponent,
+    NavbarComponent,
+    ListProyectComponent,
+    ActivityComponent,
     
   ],
   imports: [
