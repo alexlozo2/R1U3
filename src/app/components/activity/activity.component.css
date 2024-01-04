@@ -14,3 +14,23 @@
 #Actividada{
     width: 500px;
 }
+
+#fechaI{
+    width: 150px;
+    margin-left: 10px;
+}
+
+#fechaF{
+    width: 150px;
+
+    margin-left: 10px;
+}
+
+#etiquetaF{
+    margin-left: 100px;   
+}
+
+#btnGuardar{
+    margin-left: 500px;
+    margin-top: 15px;
+}

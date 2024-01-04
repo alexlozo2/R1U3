@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ObservableService } from './services/observable.service';
-import { Usuario } from './Models/usuario.model';
-import { Documento } from './Models/Documento.model';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +11,10 @@ import { Documento } from './Models/Documento.model';
 export class ApiService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private observableService: ObservableService) { }
+  //constructor(private http: HttpClient, private observableService: ObservableService) { }
 
   // Método para realizar una solicitud GET a una API en el backend.
-  public get(endpoint: string): Observable<any> {
+ /* public get(endpoint: string): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http.get(url);
   }
@@ -92,7 +91,7 @@ export class ApiService {
     });
 
     return this.http.post(url, JSON.stringify(documento), { headers, withCredentials: true });
-  }
+  }*/
 
   
 

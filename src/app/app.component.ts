@@ -9,7 +9,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
   title = 'gestionClinica';
 
-  componentName: string;
+ /* componentName: string;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -19,10 +19,10 @@ export class AppComponent {
     });
   }
 
-  private getComponentNameFromUrl(url: string): string {
+ /* private getComponentNameFromUrl(url: string): string {
     // Analiza la URL para obtener el nombre del componente actual
     // Esto dependerá de cómo tengas configurado tu enrutamiento
     const parts = url.split('/');
     return parts[1]; // Puedes ajustar esto según tu estructura de enrutamiento
-  }
+  }*/
 }
