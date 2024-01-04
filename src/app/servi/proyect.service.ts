@@ -10,13 +10,13 @@ import { projects } from '../Models/projects';
 export class ProyectService {
 
   url = "http://localhost:8080";
+
   pro : projects[]=[];
 
   constructor(private http:HttpClient) { }
 
-  public get(endpoint: string): Observable<any> {
-    const url = `${this.url}/${endpoint}`;
-    return this.http.get(url);
+  getPro(): Observable<any> {
+    return this.http.get<Array<any>>(this.url+'api/getProyectos.php');
   }
-  
+
 }

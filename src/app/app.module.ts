@@ -13,6 +13,7 @@ import { InformePDFFactory } from './factory-pattern/informe-pdf.factory';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListProyectComponent } from './components/list-proyect/list-proyect.component';
 import { ActivityComponent } from './components/activity/activity.component';
+import { ProyectService } from './servi/proyect.service';
 
 
 
@@ -31,7 +32,10 @@ import { ActivityComponent } from './components/activity/activity.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [{ provide: 'InformeFactory', useClass: InformePDFFactory }],
+  providers: [
+    { provide: 'InformeFactory', useClass: InformePDFFactory },
+    ProyectService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
